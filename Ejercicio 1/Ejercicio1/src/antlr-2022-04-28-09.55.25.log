@@ -1,0 +1,22 @@
+2022-04-28 09:55:24:878 grammar LogManager.java:25 before: (COMBINED_GRAMMAR Ejemplo1 (RULES (RULE NUEVA_LINEA (RULEMODIFIERS fragment) (BLOCK (ALT '\r\n'))) (RULE BLANCO (BLOCK (LEXER_ALT_ACTION (ALT (+ (BLOCK (ALT ' ') (ALT '\t') (ALT NUEVA_LINEA)))) skip))) (RULE DIGITO (RULEMODIFIERS fragment) (BLOCK (ALT (.. '0' '9')))) (RULE NUM_REAL (BLOCK (ALT (BLOCK (ALT (+ (BLOCK (ALT DIGITO))) '.')) (* (BLOCK (ALT DIGITO)))))) (RULE NUM_ENTERO (BLOCK (ALT (BLOCK (ALT (+ (BLOCK (ALT DIGITO)))))))) (RULE instrucciones (BLOCK (ALT (* (BLOCK (ALT expresion ';')))))) (RULE expresion (BLOCK (ALT expr_mult (* (BLOCK (ALT (BLOCK (ALT '+') (ALT '-')) expr_mult)))))) (RULE expr_mult (BLOCK (ALT expr_base (* (BLOCK (ALT (BLOCK (ALT '*') (ALT '/')) expr_base)))))) (RULE expr_base (BLOCK (ALT NUM_ENTERO) (ALT NUM_REAL) (ALT '(' expresion ')')))))
+2022-04-28 09:55:24:894 grammar LogManager.java:25 after: (COMBINED_GRAMMAR Ejemplo1 (RULES (RULE NUEVA_LINEA (RULEMODIFIERS fragment) (BLOCK (ALT '\r\n'))) (RULE BLANCO (BLOCK (LEXER_ALT_ACTION (ALT (+ (BLOCK (ALT ' ') (ALT '\t') (ALT NUEVA_LINEA)))) skip))) (RULE DIGITO (RULEMODIFIERS fragment) (BLOCK (ALT (.. '0' '9')))) (RULE NUM_REAL (BLOCK (ALT (BLOCK (ALT (+ (BLOCK (ALT DIGITO))) '.')) (* (BLOCK (ALT DIGITO)))))) (RULE NUM_ENTERO (BLOCK (ALT (BLOCK (ALT (+ (BLOCK (ALT DIGITO)))))))) (RULE instrucciones (BLOCK (ALT (* (BLOCK (ALT expresion ';')))))) (RULE expresion (BLOCK (ALT expr_mult (* (BLOCK (ALT (SET '+' '-') expr_mult)))))) (RULE expr_mult (BLOCK (ALT expr_base (* (BLOCK (ALT (SET '*' '/') expr_base)))))) (RULE expr_base (BLOCK (ALT NUM_ENTERO) (ALT NUM_REAL) (ALT '(' expresion ')')))))
+2022-04-28 09:55:24:909 grammar LogManager.java:25 after extract implicit lexer =(COMBINED_GRAMMAR Ejemplo1 (RULES (RULE instrucciones (BLOCK (ALT (* (BLOCK (ALT expresion ';')))))) (RULE expresion (BLOCK (ALT expr_mult (* (BLOCK (ALT (SET '+' '-') expr_mult)))))) (RULE expr_mult (BLOCK (ALT expr_base (* (BLOCK (ALT (SET '*' '/') expr_base)))))) (RULE expr_base (BLOCK (ALT NUM_ENTERO) (ALT NUM_REAL) (ALT '(' expresion ')')))))
+2022-04-28 09:55:24:909 grammar LogManager.java:25 lexer =(LEXER_GRAMMAR Ejemplo1Lexer (RULES (RULE T__0 (BLOCK (ALT ';'))) (RULE T__1 (BLOCK (ALT '+'))) (RULE T__2 (BLOCK (ALT '-'))) (RULE T__3 (BLOCK (ALT '*'))) (RULE T__4 (BLOCK (ALT '/'))) (RULE T__5 (BLOCK (ALT '('))) (RULE T__6 (BLOCK (ALT ')'))) (RULE NUEVA_LINEA (RULEMODIFIERS fragment) (BLOCK (ALT '\r\n'))) (RULE BLANCO (BLOCK (LEXER_ALT_ACTION (ALT (+ (BLOCK (ALT ' ') (ALT '\t') (ALT NUEVA_LINEA)))) skip))) (RULE DIGITO (RULEMODIFIERS fragment) (BLOCK (ALT (.. '0' '9')))) (RULE NUM_REAL (BLOCK (ALT (BLOCK (ALT (+ (BLOCK (ALT DIGITO))) '.')) (* (BLOCK (ALT DIGITO)))))) (RULE NUM_ENTERO (BLOCK (ALT (BLOCK (ALT (+ (BLOCK (ALT DIGITO))))))))))
+2022-04-28 09:55:25:211 semantics LogManager.java:25 tokens={EOF=-1, T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, BLANCO=8, NUM_REAL=9, NUM_ENTERO=10}
+2022-04-28 09:55:25:211 semantics LogManager.java:25 strings={';'=1, '+'=2, '-'=3, '*'=4, '/'=5, '('=6, ')'=7}
+2022-04-28 09:55:25:219 LL1 LogManager.java:25 
+DECISION 0 in rule instrucciones
+2022-04-28 09:55:25:220 LL1 LogManager.java:25 look=[{6, 9..10}, <EOF>]
+2022-04-28 09:55:25:220 LL1 LogManager.java:25 LL(1)? true
+2022-04-28 09:55:25:220 LL1 LogManager.java:25 
+DECISION 1 in rule expresion
+2022-04-28 09:55:25:220 LL1 LogManager.java:25 look=[{2..3}, {1, 7}]
+2022-04-28 09:55:25:220 LL1 LogManager.java:25 LL(1)? true
+2022-04-28 09:55:25:220 LL1 LogManager.java:25 
+DECISION 2 in rule expr_mult
+2022-04-28 09:55:25:220 LL1 LogManager.java:25 look=[{4..5}, {1..3, 7}]
+2022-04-28 09:55:25:220 LL1 LogManager.java:25 LL(1)? true
+2022-04-28 09:55:25:220 LL1 LogManager.java:25 
+DECISION 3 in rule expr_base
+2022-04-28 09:55:25:220 LL1 LogManager.java:25 look=[10, 9, 6]
+2022-04-28 09:55:25:220 LL1 LogManager.java:25 LL(1)? true
