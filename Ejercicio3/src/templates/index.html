@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador Sintáctico - Ejercicio 3</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .result-area {
+            min-height: 100px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Analizador Sintáctico - Ejercicio 3</h1>
+        
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Ingrese el código a analizar</h5>
+            </div>
+            <div class="card-body">
+                <form id="analyzeForm">
+                    <div class="mb-3">
+                        <textarea id="codeInput" class="form-control" rows="10" placeholder="Ingrese su código aquí..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Analizar</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Resultado del análisis</h5>
+            </div>
+            <div class="card-body">
+                <div id="resultArea" class="result-area">
+                    <p class="text-muted">El resultado del análisis se mostrará aquí...</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Ejemplos de código</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <h6>Ejemplo 1: Expresiones aritméticas</h6>
+                    <pre class="bg-light p-2">a = 5 + 3 * 2;
+b = (10 - 5) / 2.5;</pre>
+                    <button class="btn btn-sm btn-outline-primary load-example" data-example="1">Cargar ejemplo</button>
+                </div>
+                
+                <div class="mb-3">
+                    <h6>Ejemplo 2: Estructura if</h6>
+                    <pre class="bg-light p-2">if (a < b) {
+    c = a + b;
+}</pre>
+                    <button class="btn btn-sm btn-outline-primary load-example" data-example="2">Cargar ejemplo</button>
+                </div>
+                
+                <div>
+                    <h6>Ejemplo 3: Estructura while</h6>
+                    <pre class="bg-light p-2">while (a < b) {
+    if (2 * a >= b) {
+        b = 2;
+    }
+    a = a + 1;
+}</pre>
+                    <button class="btn btn-sm btn-outline-primary load-example" data-example="3">Cargar ejemplo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Manejar el envío del formulario
+            $('#analyzeForm').submit(function(e) {
+                e.preventDefault();
+                
+                const code = $('#codeInput').val();
+                if (!code.trim()) {
+                    alert('Por favor, ingrese código para analizar.');
+                    return;
+                }
+                
+                // Enviar el código al servidor para análisis
+                $.ajax({
+                    url: '/analyze',
+                    method: 'POST',
+                    data: { code: code },
+                    beforeSend: function() {
+                        $('#resultArea').html('<p class="text-center">Analizando...</p>');
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $('#resultArea').html('<div class="success p-3">' + response.message + '</div>');
+                        } else {
+                            let errorHtml = '<div class="error p-3"><strong>Errores encontrados:</strong><ul>';
+                            response.errors.forEach(function(error) {
+                                errorHtml += '<li>' + error + '</li>';
+                            });
+                            errorHtml += '</ul></div>';
+                            $('#resultArea').html(errorHtml);
+                        }
+                    },
+                    error: function() {
+                        $('#resultArea').html('<div class="error p-3">Error al comunicarse con el servidor.</div>');
+                    }
+                });
+            });
+            
+            // Cargar ejemplos
+            $('.load-example').click(function() {
+                const exampleNum = $(this).data('example');
+                let exampleCode = '';
+                
+                switch(exampleNum) {
+                    case 1:
+                        exampleCode = 'a = 5 + 3 * 2;\nb = (10 - 5) / 2.5;';
+                        break;
+                    case 2:
+                        exampleCode = 'if (a < b) {\n    c = a + b;\n}';
+                        break;
+                    case 3:
+                        exampleCode = 'while (a < b) {\n    if (2 * a >= b) {\n        b = 2;\n    }\n    a = a + 1;\n}';
+                        break;
+                }
+                
+                $('#codeInput').val(exampleCode);
+            });
+        });
+    </script>
+</body>
+</html>
