@@ -1,0 +1,44 @@
+# Entornos virtuales
+venv/
+env/
+ENV/
+
+# Archivos generados por Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Archivos generados por ANTLR
+*.interp
+*.tokens
+*.class
+
+# Archivos de IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.project
+.pydevproject
+.settings/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
